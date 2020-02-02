@@ -1,5 +1,14 @@
-# bold-colors
-Informatics Capstone 2020
+# Bold Colors
+**University of Washington Informatics Capstone 2020**  
+
+Bold Colors assists color blind people to allow them to enjoy the benefits of indoor climbing.
+
+## Getting Started
+
+
+
+## Team 
+**Advisors:** Marlina L. Yee-Hales and Yash Patel  
 
 |James Kim|William Kwok|Allison Lee|Elisa Truong|
 |---|---|---|---|
