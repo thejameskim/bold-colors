@@ -1,7 +1,7 @@
 # Bold Colors
 **University of Washington Informatics Capstone 2020**  
 
-Bold Colors assists color blind people to allow them to enjoy the benefits of indoor climbing.
+Bold Colors empowers color blind individuals to enjoy the benefits of indoor climbing
 
 ## Getting Started
 
