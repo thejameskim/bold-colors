@@ -17,5 +17,6 @@ import { createContext } from 'react';
  * ```
  */
 export const GlobalContext = createContext({
+	scrollPosition: 0,
 	windowWidth: 0
 })
