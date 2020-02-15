@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { EnabledFeatures } from '../../_ENABLED_FEATURES/EnabledFeatures';
 import { GlobalContext } from '../../utils/GlobalContext/GlobalContext';
+import { CustomFade } from '../CustomFade/CustomFade';
 
 /** 
  * Change this to make the "end" point of the colorification sooner or later
  * 
  */
-const COLORIFICATION_CONSTANT = 0.05;
+const COLORIFICATION_CONSTANT = 0.0;
 
 /** 
  * Colorify will apply a filter to the children that turns them into grayscaled components that
@@ -26,9 +27,11 @@ export function ColorifiedImg({ src, alt, styles }) {
 
 	if (EnabledFeatures.Colorify) {
 		extraStyles.filter = `grayscale(${1 - percentageHeight})`;
+	} else if (EnabledFeatures.GrayscaleIfNotColorify) {
+		extraStyles.filter = `grayscale(1)`
 	}
-	return <img src={src} alt={alt} style={{
+	return <CustomFade duration={1000}><img src={src} alt={alt} style={{
 		...styles,
 		...extraStyles
-	}} />
+	}} /></CustomFade>
 }

@@ -1,0 +1,1 @@
+export const FOREGROUND_PRIORITY = 2;

@@ -1,12 +1,90 @@
+:root {
+	--MAIN-COLOR: #fbb03b;
+	--BRIGHT-TEXT: white;
+	--DARK-TEXT: black;
+	--MARGIN-DEFAULT: 12%;
+	--MARGIN-DEFAULT-MOBILE: 5%;
+}
+
 body {
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	font-family: Futura, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	padding: 0px;
+	color: var(--DARK-TEXT);
+	overflow-x: hidden !important;
 }
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+h1, h2, h3, h4, h5 {
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 {
+	font-size: 4em;
+}
+
+h2 {
+	font-size: 2.5em;
+}
+
+h3 {
+	font-size: 1.5em;
+}
+
+p {
+	font-size: 1em;
+}
+
+@media only screen and (max-width: 992px) {
+	h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.7em;
+	}
+	h3 {
+		font-size: 1.2em;
+	}
+	p {
+		font-size: 0.8em;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+button {
+	background-color: var(--MAIN-COLOR);
+	border: 3px dashed var(--BRIGHT-TEXT);
+	color: var(--BRIGHT-TEXT);
+	padding: 15px;
+	font-size: 1em;
+	border-radius: 4px;
+}
+
+button:hover {
+	border: 3px solid var(--BRIGHT-TEXT);
+	cursor: pointer;
+}
+
 /** Insert global styles here */
+
+.bright-text {
+	color: var(--BRIGHT-TEXT);
+}
+
+.dark-text {
+	color: var(--DARK-TEXT);
+}
+
+.maincolor-text {
+	color: var(--MAIN-COLOR);
+}
