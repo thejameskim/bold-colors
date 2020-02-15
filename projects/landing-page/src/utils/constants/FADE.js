@@ -1,0 +1,1 @@
+export const MAIN_FADE = 1500;

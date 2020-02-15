@@ -1,0 +1,42 @@
+.headline {
+	color: var(--BRIGHT-TEXT);
+	margin: 0px;
+	padding-bottom: 40px;
+}
+
+.headline-inner {
+	background-color: var(--MAIN-COLOR);
+	position: relative;
+}
+
+.headline-content {
+	margin-left: var(--MARGIN-DEFAULT);
+	margin-right: var(--MARGIN-DEFAULT);
+	z-index: 5;
+}
+
+.headline {
+	margin: 0px;
+}
+
+.headline-text-group {
+	width: 35%;
+}
+
+.headline-main {
+	margin-bottom: 1em;
+}
+
+.headline-bg-image {
+	width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+	.headline-text-group {
+		width: 100%;
+	}
+	.headline {
+		overflow-y: hidden;
+		overflow-x: hidden;
+	}
+}

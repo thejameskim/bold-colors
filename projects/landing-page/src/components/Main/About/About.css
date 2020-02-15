@@ -1,0 +1,51 @@
+.about {
+	margin-top: 0px;
+}
+
+@media only screen and (min-width: 576px) and (max-width: 992px) {
+	.about {
+		margin-top: 100px;
+	}
+}
+
+.about-content {
+	margin-left: var(--MARGIN-DEFAULT);
+	margin-right: var(--MARGIN-DEFAULT);
+}
+
+.about-header {
+	color: var(--MAIN-COLOR);
+	text-align: right;
+}
+
+.about-item {
+	position: relative;
+}
+
+.about-inner {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.about-features-inner {
+	background-color: var(--MAIN-COLOR);
+	padding-left: var(--MARGIN-DEFAULT);
+	padding-right: var(--MARGIN-DEFAULT);
+	color: var(--BRIGHT-TEXT)
+}
+
+.about-features-inner-inner {
+	position: relative;
+	display: flex;
+	align-content: left;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.about-features-content {
+	width: 50%;
+}
+
+.about-features-iphone {
+	text-align: center;
+}

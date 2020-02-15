@@ -1,0 +1,33 @@
+.navbar {
+	background-color: var(--MAIN-COLOR);
+	color: var(--BRIGHT-TEXT);
+	margin: 0px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.navbar-inner {
+	margin-left: var(--MARGIN-DEFAULT);
+	margin-right: var(--MARGIN-DEFAULT);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navbar-links {
+	width: 50%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 999;
+}
+
+.navbar-logo {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.navbar-links a {
+	cursor: pointer;
+	font-size: 1.5em;
+}
