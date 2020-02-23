@@ -1,0 +1,46 @@
+.main-point {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	font-weight: bold;
+}
+
+.main-point-1 {
+	text-align: left;
+	font-size: 2.5em;
+	margin-bottom: 10px;
+}
+
+.main-point-2 {
+	text-align: center;
+	font-size: 4em;
+	margin-bottom: 25px;
+	text-shadow: -10px 10px 0px var(--MAIN-COLOR), -10px 10px 5px var(--BRIGHT-TEXT);
+}
+
+.main-point-3 {
+	text-align: right;
+	margin-bottom: 25px;
+	font-size: 2.5em;
+}
+
+.main-point-4 {
+	margin-left: 10%;
+	font-weight: normal;
+	font-size: 1em;
+}
+
+@media only screen and (max-width: 992px) {
+	.main-point {
+		width: 100%;
+	}
+	.main-point-2 {
+		font-size: 2em;
+	}
+	.main-point-1, .main-point-3 {
+		font-size: 1.3em;
+	}
+	.main-point-4 {
+		font-size: 0.8em;
+	}
+}
