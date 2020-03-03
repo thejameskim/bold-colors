@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <button id="actionBtn">Start</button>
+    </div>
+    <video id="videoInput" width="320" height="240"></video>
+    <canvas id="canvasOutput" width="320" height="240"></canvas>
+  </body>
+  <script
+    type="text/javascript"
+    async
+    src="./opencv.js"
+    onload="onCvLoaded();"
+  ></script>
+  <script type="text/javascript" src="./index.js"></script>
+</html>
