@@ -38,7 +38,7 @@ function onReady () {
         })
         .catch(err => console.log(`An error occurred: ${err}`));
     }
-
+    
     function stop () {
         if (video) {
             video.pause();
@@ -58,10 +58,17 @@ function onReady () {
         }
         const begin = Date.now();
         cap.read(src)
-        hsv = cv.cvtColor(src, cv.COLOR_RGB2HSV);
-        
-        cv.imshow('canvasOutput', dst);
+        let dst = new cv.Mat();
 
+        // hsv = cv.cvtColor(src, dst, cv.COLOR_BGR2HSV);
+
+        // Red
+        let low = new cv.Mat(src.rows, src.cols, src.type(), [161, 155, 84, 0]);
+        let high = new cv.Mat(src.rows, src.cols, src.type(), [179, 255, 255, 0]);
+        cv.inRange(src, low, high, dst);
+        cv.imshow('canvasOutput', dst);
+        src.delete(); dst.delete(); low.delete(); high.delete();
+        
         const delay = 1000/FPS - (Date.now() - begin);
         setTimeout(processVideo, delay);
     }
