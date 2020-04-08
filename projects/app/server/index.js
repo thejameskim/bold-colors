@@ -1,67 +1,22 @@
 function onCvLoaded() {
     cv.onRuntimeInitialized = onReady;
 }
+
 const video = document.getElementById('videoInput');
 const width = 640;
 const height = 480;
 const FPS = 30;
 let stream;
 let streaming = false;
-
-const HSV_RANGES = {
-    'yellow': {
-        'lower': [20, 100, 100, 0],
-        'upper': [30, 255, 255, 255]
-    },
-    'red': {
-        'lower': [170, 100, 0, 0],
-        'upper': [180, 255, 255, 255]
-    },
-    'green': {
-        'lower': [50, 50, 50, 0],
-        'upper': [70, 255, 255, 255]
-    },
-    'purple': {
-        'lower': [],
-        'upper': []
-    },
-    'orange': {
-        'lower': [10, 100, 20, 0],
-        'upper': [25, 255, 255, 255]
-    },
-    'black': {
-        'lower': [],
-        'upper': []
-    },
-    'blue': {
-        'lower': [110, 100, 100, 0],
-        'upper': [130, 255, 255, 255]
-    },
-    'pink': {
-        'lower': RGBtoHSV(255, 192, 203, 0),
-        'upper': RGBtoHSV(255, 192, 203, 255)
-    },
-    'white': {
-        'lower': [],
-        'upper': []
-    },
-}
-
-// generateColorOptions();
-
-// function generateColorOptions() {
-//     let dropDown = document.getElementById("selector");
-//     Object.keys(HSV_RANGES).forEach((color) => {
-//         let option = document.createElement("option");
-//         option.value = color;
-//         option.innerText = color;
-//         dropDown.appendChild(option);
-//     });
-// }
+let hsvSelectColor;
 
 // Code taken from: http://coecsl.ece.illinois.edu/ge423/spring05/group8/finalproject/hsv_writeup.pdf
 // based on: https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html#color_convert_rgb_hsv 
-function RGBtoHSV(r, g, b, lowerUpper) {
+function RGBtoHSV(r, g, b) {
+
+    // r = convertRGB(r);
+    // g = convertRGB(g);
+    // b = convertRGB(b);
 
     let HSV = {}
 
@@ -94,7 +49,8 @@ function RGBtoHSV(r, g, b, lowerUpper) {
         HSV.h += 360;
     }
 
-    return [HSV.h, HSV.s, HSV.v, lowerUpper];
+    console.log([HSV.h, HSV.s, HSV.v])
+    return [HSV.h / 2, HSV.s, HSV.v];
 }
 
 // Convert range of given rgb value to 0 to 1 range
@@ -103,9 +59,15 @@ function convertRGB(rgb) {
 }
 
 function onReady() {
+    
     let src;
     let dst;
     let hsv;
+
+    const vid = document.getElementById('videoInput');
+    const canvas = document.getElementById('touchPad');
+    const context = canvas.getContext('2d');
+
     const cap = new cv.VideoCapture(video);
     actionBtn.addEventListener('click', () => {
         if (streaming) {
@@ -117,30 +79,37 @@ function onReady() {
         }
     });
 
+    function grabColor(event) {
+        const rect = canvas.getBoundingClientRect(); 
+        let x = event.clientX - rect.left; 
+        let y = event.clientY - rect.top; 
+        const imageData = context.getImageData(x, y, 1, 1).data;
+        const pixelRGB = {
+            r: imageData[0],
+            g: imageData[1],
+            b: imageData[2]
+        }
+
+        const div = document.getElementById("selectedColor");
+        div.style.backgroundColor = "rgb(" + pixelRGB.r + "," 
+            + pixelRGB.g + "," + pixelRGB.b + ")";
+        div.innerText = pixelRGB.r + "," + pixelRGB.g + "," + pixelRGB.b;
+        
+        return pixelRGB;
+    }
+
     function start() {
 
-        const vid = document.getElementById('videoInput');
-        const canvas = document.getElementById('touchPad');
-        const context = canvas.getContext('2d');
-
         canvas.addEventListener("mousedown", function(event) { 
-            const rect = canvas.getBoundingClientRect(); 
-            let x = event.clientX - rect.left; 
-            let y = event.clientY - rect.top; 
-            const imageData = context.getImageData(x, y, 1, 1).data;
-            const pixelRGB = {
-                r: imageData[0],
-                g: imageData[1],
-                b: imageData[2]
-            }
-            console.log(pixelRGB);
-            const div = document.getElementById("selectedColor");
-            div.style.backgroundColor = "rgb(" + pixelRGB.r + "," 
-                + pixelRGB.g + "," + pixelRGB.b + ")";
-            div.innerText = pixelRGB.r + "," + pixelRGB.g + "," + pixelRGB.b;
-            // getMousePosition(canvas, e); 
+            
+            let pixelRGB = grabColor(event);
+            hsvSelectColor = RGBtoHSV(pixelRGB.r, pixelRGB.g, pixelRGB.b);
+            console.log(hsvSelectColor)
+            hsvSelectColor.push(0);
+            clearInterval(this.intervalID);
+            setTimeout(processVideo, 0);
         });
-
+        
         navigator.mediaDevices.getUserMedia({ video: true, audio: false })
             .then(_stream => {
                 stream = _stream;
@@ -152,23 +121,12 @@ function onReady() {
                 src = new cv.Mat(height, width, cv.CV_8UC4);
                 dst = new cv.Mat(height, width, cv.CV_8UC1);
                 hsv = new cv.Mat();
-                // setTimeout(processVideo, 0)
                 this.intervalID = setInterval(() => {
-                    console.log("draw");
                     context.drawImage(vid, 0, 0, vid.clientWidth, vid.clientHeight)
                 }, 500);
             })
             .catch(err => console.log(`An error occurred: ${err}`));
     }
-
-    // https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/
-    function getMousePosition(canvas, event) { 
-        const rect = canvas.getBoundingClientRect(); 
-        let x = event.clientX - rect.left; 
-        let y = event.clientY - rect.top; 
-        console.log("Coordinate x: " + x,  
-                    "Coordinate y: " + y); 
-    } 
 
     function stop() {
         if (video) {
@@ -192,10 +150,19 @@ function onReady() {
         cap.read(src);
         src.copyTo(dst);
 
-        let selectedColor = selector.value
+        let lowerHSV = hsvSelectColor.slice();
+        lowerHSV[0] -= 10;
+        lowerHSV[1] -= 10;
+        lowerHSV[2] -= 10;
+        let higherHSV = hsvSelectColor.slice();
+        higherHSV[0] += 10;
+        higherHSV[1] += 10;
+        higherHSV[2] += 10;
+        higherHSV[higherHSV.length - 1] = 255;
+
         cv.cvtColor(src, hsv, cv.COLOR_RGB2HSV);
-        let low = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), HSV_RANGES[selectedColor].lower);
-        let high = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), HSV_RANGES[selectedColor].upper);
+        let low = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), lowerHSV);
+        let high = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), higherHSV);
         cv.inRange(hsv, low, high, hsv);
 
         const contours = new cv.MatVector();
@@ -211,7 +178,7 @@ function onReady() {
             cv.rectangle(dst, point1, point2, [255, 0, 0, 255])
         }
 
-        cv.imshow('canvasOutput', dst);
+        cv.imshow('touchPad', dst);
 
         const delay = 1000 / FPS - (Date.now() - begin);
         setTimeout(processVideo, delay);
