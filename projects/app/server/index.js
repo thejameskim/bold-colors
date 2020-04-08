@@ -8,7 +8,6 @@ const height = 480;
 const FPS = 30;
 let stream;
 let streaming = false;
-let hsvSelectColor;
 
 // Code taken from: http://coecsl.ece.illinois.edu/ge423/spring05/group8/finalproject/hsv_writeup.pdf
 // based on: https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html#color_convert_rgb_hsv 
@@ -64,11 +63,13 @@ function onReady() {
     let dst;
     let hsv;
 
-    const vid = document.getElementById('videoInput');
+    let hsvSelectColor;
+
+    const vidElement = document.getElementById('videoInput');
     const canvas = document.getElementById('touchPad');
     const context = canvas.getContext('2d');
-
     const cap = new cv.VideoCapture(video);
+    
     actionBtn.addEventListener('click', () => {
         if (streaming) {
             stop();
@@ -79,7 +80,32 @@ function onReady() {
         }
     });
 
-    function grabColor(event) {
+    canvas.addEventListener("mousedown", function(event) { 
+        let pixelRGB = getPixelRGB(event);
+        hsvSelectColor = RGBtoHSV(pixelRGB.r, pixelRGB.g, pixelRGB.b);
+        clearInterval(this.intervalID);
+        setTimeout(processVideo, 0);
+    });
+
+    function calcLowerHsv(num) {
+        let lowerHSV = hsvSelectColor.slice();
+        lowerHSV[0] -= num;
+        lowerHSV[1] -= num;
+        lowerHSV[2] -= num;
+        lowerHSV[3] = 0;
+        return lowerHSV;
+    }
+
+    function calcHigherHsv(num) {
+        let higherHSV = hsvSelectColor.slice();
+        higherHSV[0] += num;
+        higherHSV[1] += num;
+        higherHSV[2] += num;
+        higherHSV[3] = 255;
+        return higherHSV;
+    }
+
+    function getPixelRGB(event) {
         const rect = canvas.getBoundingClientRect(); 
         let x = event.clientX - rect.left; 
         let y = event.clientY - rect.top; 
@@ -99,16 +125,6 @@ function onReady() {
     }
 
     function start() {
-
-        canvas.addEventListener("mousedown", function(event) { 
-            
-            let pixelRGB = grabColor(event);
-            hsvSelectColor = RGBtoHSV(pixelRGB.r, pixelRGB.g, pixelRGB.b);
-            console.log(hsvSelectColor)
-            hsvSelectColor.push(0);
-            clearInterval(this.intervalID);
-            setTimeout(processVideo, 0);
-        });
         
         navigator.mediaDevices.getUserMedia({ video: true, audio: false })
             .then(_stream => {
@@ -122,7 +138,7 @@ function onReady() {
                 dst = new cv.Mat(height, width, cv.CV_8UC1);
                 hsv = new cv.Mat();
                 this.intervalID = setInterval(() => {
-                    context.drawImage(vid, 0, 0, vid.clientWidth, vid.clientHeight)
+                    context.drawImage(vidElement, 0, 0, vidElement.clientWidth, vidElement.clientHeight)
                 }, 500);
             })
             .catch(err => console.log(`An error occurred: ${err}`));
@@ -150,15 +166,8 @@ function onReady() {
         cap.read(src);
         src.copyTo(dst);
 
-        let lowerHSV = hsvSelectColor.slice();
-        lowerHSV[0] -= 10;
-        lowerHSV[1] -= 10;
-        lowerHSV[2] -= 10;
-        let higherHSV = hsvSelectColor.slice();
-        higherHSV[0] += 10;
-        higherHSV[1] += 10;
-        higherHSV[2] += 10;
-        higherHSV[higherHSV.length - 1] = 255;
+        let lowerHSV = calcLowerHsv(15);
+        let higherHSV = calcHigherHsv(15);
 
         cv.cvtColor(src, hsv, cv.COLOR_RGB2HSV);
         let low = new cv.Mat(hsv.rows, hsv.cols, hsv.type(), lowerHSV);
