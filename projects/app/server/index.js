@@ -9,6 +9,8 @@ const FPS = 30;
 let stream;
 let streaming = false;
 
+let hidePopup = false;
+
 // Code taken from: http://coecsl.ece.illinois.edu/ge423/spring05/group8/finalproject/hsv_writeup.pdf
 // based on: https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html#color_convert_rgb_hsv 
 function RGBtoHSV(r, g, b) {
@@ -48,7 +50,6 @@ function RGBtoHSV(r, g, b) {
         HSV.h += 360;
     }
 
-    console.log([HSV.h, HSV.s, HSV.v])
     return [HSV.h / 2, HSV.s, HSV.v];
 }
 
@@ -70,12 +71,34 @@ function onReady() {
     const context = canvas.getContext('2d');
     const cap = new cv.VideoCapture(video);
     
+    const camBtn = document.getElementById('cam');
+    camBtn.addEventListener('click', () => {
+        let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        let link = document.createElement('a');
+        link.download = "my-image.png";
+        link.href = image;
+        link.click();
+    });
+
+    const selectedColorDiv = document.querySelector("#selectColorDiv");
+
     actionBtn.addEventListener('click', () => {
         if (streaming) {
             stop();
+            cam.disabled = true;
+            // cam.classList.add('hidden');
+            // selectedColorDiv.classList.add('hidden');
             actionBtn.textContent = 'Start';
         } else {
             start();
+            cam.disabled = false;
+            // cam.classList.remove('hidden');
+            // selectedColorDiv.classList.remove('hidden');
+            if (!hidePopup) {
+                hidePopup = true;
+                let popUp = document.getElementById('popup');
+                popUp.classList.add('hidden');
+            }
             actionBtn.textContent = 'Stop';
         }
     });
@@ -116,10 +139,11 @@ function onReady() {
             b: imageData[2]
         }
 
-        const div = document.getElementById("selectedColor");
-        div.style.backgroundColor = "rgb(" + pixelRGB.r + "," 
-            + pixelRGB.g + "," + pixelRGB.b + ")";
-        div.innerText = pixelRGB.r + "," + pixelRGB.g + "," + pixelRGB.b;
+        const div = document.querySelector("#selectColorDiv div");
+        div.style.backgroundColor = "rgb(" + pixelRGB.r + ", " 
+            + pixelRGB.g + ", " + pixelRGB.b + ")";
+        const divText = document.querySelector("#selectColorDiv span");
+        divText.innerText = pixelRGB.r + ", " + pixelRGB.g + ", " + pixelRGB.b;
         
         return pixelRGB;
     }

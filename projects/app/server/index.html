@@ -5,15 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <video id="videoInput" class="hideVid" width="640" height="480"></video>
-    <canvas id="touchPad" width="640" height="480"></canvas>
-    <div>
-      <button id="actionBtn">Start</button>
-      <div id="selectedColor">&nbsp;</div>
-    </div>
-    <canvas id="canvasOutput" width="640" height="480"></canvas>
+    <header>
+      <h1>Bold Colors</h1>
+    </header>
+    <main>
+      <div id="selectColorDiv">
+        <p>Selected color: <br /><span></span></p>
+        <div class="centerBlock">&nbsp;</div>
+      </div>
+
+      <button id="cam"><i class="fa fa-camera"></i></button>
+
+      <div id="popup" class="centerBlock">
+        <p>Start using Bold Colors <br />by clicking the button below!</p>
+      </div>
+      <video id="videoInput" class="hideVid" width="640" height="480"></video>
+      <canvas id="touchPad" class="centerBlock" width="640" height="480"></canvas>
+      <button id="actionBtn" class="centerBlock btn">Start</button>
+    </main>
   </body>
   <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
   <script
