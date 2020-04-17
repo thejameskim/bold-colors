@@ -11,6 +11,41 @@ let streaming = false;
 
 let hidePopup = false;
 
+const settingColor = {
+    black: [0, 0, 0, 255],
+    white: [255, 255, 255, 255],
+    red: [255, 0, 0, 255],
+    green: [0, 255, 0, 255],
+    blue: [0, 0, 255, 255],
+    purple: [102, 0, 204, 255],
+    yellow: [255, 255, 51, 255],
+    orange: [255, 153, 51, 255]
+}
+
+const dropDown = document.querySelector("#set-info select");
+let colors = Object.keys(settingColor);
+colors.forEach((color) => {
+    let option = document.createElement("option");
+    option.innerText = color;
+    option.value = color;
+    dropDown.append(option);
+});
+
+const radioBtn = document.querySelectorAll("input");
+
+const setDiv = document.querySelector("#set-info");
+const setBtn = document.getElementById("setting");
+const saveSetBtn = document.getElementById("save-btn");
+setBtn.addEventListener("click", () => {
+    setBtn.classList.toggle("hidden");
+    setDiv.classList.toggle("hidden");
+});
+saveSetBtn.addEventListener("click", () => {
+    setBtn.classList.toggle("hidden");
+    setDiv.classList.toggle("hidden");
+});
+
+
 // Code taken from: http://coecsl.ece.illinois.edu/ge423/spring05/group8/finalproject/hsv_writeup.pdf
 // based on: https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html#color_convert_rgb_hsv 
 function RGBtoHSV(r, g, b) {
@@ -202,18 +237,49 @@ function onReady() {
         const hierarchy = new cv.Mat();
         cv.findContours(hsv, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
         const contoursSize = contours.size();
-
-        for (let i = 0; i < contoursSize; ++i) {
-            let obj = contours.get(i);
-            let rect = cv.boundingRect(obj);
-            let point1 = new cv.Point(rect.x, rect.y);
-            let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
-            cv.rectangle(dst, point1, point2, [255, 0, 0, 255])
+        if (radioBtn[0].checked) {
+            drawRect(contours, contoursSize, dst);
+        } else if (radioBtn[1].checked) {
+            drawCircle(contours, contoursSize, dst);
+        } else {
+            drawPolygon(contours, contoursSize, dst)
         }
+        
 
         cv.imshow('touchPad', dst);
 
         const delay = 1000 / FPS - (Date.now() - begin);
         setTimeout(processVideo, delay);
+    }
+
+    function drawPolygon(contours, contoursSize, dst) {
+        for (let i = 0; i < contoursSize; ++i) {
+            cv.drawContours(dst, contours, i, settingColor[dropDown.value]);
+        }
+    }
+
+    function drawRect(contours, contoursSize, dst) {
+        for (let i = 0; i < contoursSize; ++i) {
+            let obj = contours.get(i);
+            let rect = cv.boundingRect(obj);
+            let point1 = new cv.Point(rect.x, rect.y);
+            let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
+            cv.rectangle(dst, point1, point2, settingColor[dropDown.value])
+        }
+    }
+
+    function drawCircle(contours, contoursSize, dst) {
+        for (let i = 0; i < contoursSize; ++i) {
+            let obj = contours.get(i);
+
+            let M = cv.moments(obj)
+            let cX = M["m10"] / M["m00"]
+            let cY = M["m01"] / M["m00"]
+            let mid = new cv.Point(cX, cY);
+
+            let area = cv.contourArea(obj)
+            let radius = Math.sqrt(4 * area / Math.PI) / 2;
+            cv.circle(dst, mid, radius, settingColor[dropDown.value])
+        }
     }
 }

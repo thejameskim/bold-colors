@@ -59,13 +59,13 @@ header {
     left: 30%;
 }
 
-#selectColorDiv {
+#selectColorDiv, #set-info {
     top: 80px;
     width: 100px;
     font-size: xx-small;
 }
 
-#cam, #selectColorDiv {
+#cam, #selectColorDiv, #setting, #set-info {
     padding: 10px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -73,6 +73,15 @@ header {
     color: white;
     position: fixed;
     left: 0;
+}
+
+#set-info {
+    top: 250px;
+}
+
+#setting {
+    top: 250px;
+    width: 50px;
 }
 
 #cam {
