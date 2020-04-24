@@ -17,7 +17,7 @@ const HEADLINE_MAIN = "Boldly Tackle Your Next Route";
 const SUB_TEXT = "What is bold colors?";
 const DESCRIPTION = "A route planning application to empower colorblind boulderers on their next adventure";
 const BUTTON_TEXT = "Show me the Route";
-const BUTTON_LINK = "#";
+const BUTTON_LINK = "/app";
 
 const IMAGES = [
 	{
