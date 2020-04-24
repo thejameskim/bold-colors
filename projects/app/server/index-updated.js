@@ -1,96 +1,91 @@
+"use strict";
 function onCvLoaded() {
     cv.onRuntimeInitialized = onReady;
 }
 
-const video = document.getElementById('videoInput');
-const width = 640;
-const height = 480;
+const MOBILE_NAV_OFFSET = qs("nav").clientHeight;
+const settingColor = {
+    black: [0, 0, 0, 255],
+    white: [255, 255, 255, 255],
+    red: [255, 0, 0, 255],
+    green: [0, 255, 0, 255],
+    blue: [0, 0, 255, 255],
+    purple: [102, 0, 204, 255],
+    yellow: [255, 255, 51, 255],
+    orange: [255, 153, 51, 255]
+}
+const width = window.innerWidth;
+const height = window.innerHeight - MOBILE_NAV_OFFSET;
+generateVideoOutput();
+const video = $('videoInput');
 const FPS = 30;
 let stream;
 let streaming = false;
 
-let hidePopup = false;
+setMobileBtn();
+generateColorOptions();
 
-const settingColor = {
-    Black: [0, 0, 0, 255],
-    White: [255, 255, 255, 255],
-    Red: [255, 0, 0, 255],
-    Green: [0, 255, 0, 255],
-    Blue: [0, 0, 255, 255],
-    Purple: [102, 0, 204, 255],
-    Yellow: [255, 255, 51, 255],
-    Orange: [255, 153, 51, 255]
+function generateVideoOutput() {
+    const video = document.createElement("video");
+    video.width = width;
+    video.height = height;
+    video.id = "videoInput";
+    video.classList.add("hideVid");
+    qs("main").appendChild(video);
+
+    console.log(video.width);
+    console.log(video.height);
+
+    const outputCanvas = document.createElement("canvas");
+    outputCanvas.width = width;
+    outputCanvas.height = height;
+    outputCanvas.style.width = width + "px";
+    outputCanvas.style.height = height + "px";
+    outputCanvas.id = "touchPad";
+    qs("main").appendChild(outputCanvas);
 }
 
-const dropDown = document.querySelector("#set-info select");
-let colors = Object.keys(settingColor);
-colors.forEach((color) => {
-    let option = document.createElement("option");
-    option.innerText = color;
-    option.value = color;
-    dropDown.append(option);
-});
-
-const radioBtn = document.querySelectorAll("input");
-
-const setDiv = document.querySelector("#set-info");
-const setBtn = document.getElementById("setting");
-const saveSetBtn = document.getElementById("save-btn");
-setBtn.addEventListener("click", () => {
-    setBtn.classList.toggle("hidden");
-    setDiv.classList.toggle("hidden");
-});
-saveSetBtn.addEventListener("click", () => {
-    setBtn.classList.toggle("hidden");
-    setDiv.classList.toggle("hidden");
-});
-
-
-// Code taken from: http://coecsl.ece.illinois.edu/ge423/spring05/group8/finalproject/hsv_writeup.pdf
-// based on: https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html#color_convert_rgb_hsv 
-function RGBtoHSV(r, g, b) {
-
-    // r = convertRGB(r);
-    // g = convertRGB(g);
-    // b = convertRGB(b);
-
-    let HSV = {}
-
-    min = Math.min(r, g, b);
-    max = Math.max(r, g, b);
-
-    //  Calcuate V
-    HSV.v = max;
-
-    // Calculate S
-    let delta = max - min;
-    if (max != 0) {
-        HSV.s = (delta / max) * 255;
-    } else {
-        HSV.s = 0;
-        HSV.h = -1;
-        return
-    }
-
-    // Calculate H
-    if (r == max) {
-        HSV.h = (g - b) / delta;
-    } else if (g == max) {
-        HSV.h = 2 + (b - r) / delta;
-    } else {
-        HSV.h = 4 + (r - g) / delta;
-    }
-    HSV.h *= 60;
-    if (HSV.h < 0) {
-        HSV.h += 360;
-    }
-
-    return [HSV.h / 2, HSV.s, HSV.v];
+function generateColorOptions() {
+    const colors = Object.keys(settingColor);
+    colors.forEach((color) => {
+        let option = document.createElement("option");
+        option.innerText = color;
+        option.value = color;
+        qs("#settings select").append(option);
+    });
 }
 
-// Convert range of given rgb value to 0 to 1 range
-function convertRGB(rgb) {
-    return (1 / 255) * rgb;
+function setMobileBtn() {
+
+    $("exitSetBtn").addEventListener("click", () => {
+        $("settings").classList.add("hidden");
+    });
+
+    $("exitHTBtn").addEventListener("click", (event) => {
+        $("how-to").classList.add("hidden");
+        $("touchPad").classList.toggle("hidden");
+    });
+
+    $("helpBtn").addEventListener("click", (event) => {
+        if (!$("saveBtn").classList.contains("hidden")) {
+            $("saveBtn").classList.toggle("hidden");
+        }
+        $("how-to").classList.toggle("hidden");
+        $("touchPad").classList.toggle("hidden");
+    });
+
+    $("saveBtn").addEventListener("click", () => {
+        let image = $("touchPad").toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+        let link = document.createElement('a');
+        link.download = "my-image.png";
+        link.href = image;
+        link.click();
+    });
+
+    $("setBtn").addEventListener("click", (event) => {
+        $("settings").classList.toggle("hidden");
+    });
 }
 
 function onReady() {
@@ -98,51 +93,34 @@ function onReady() {
     let src;
     let dst;
     let hsv;
-
     let hsvSelectColor;
+    let intervalID;
 
-    const vidElement = document.getElementById('videoInput');
-    const canvas = document.getElementById('touchPad');
+    const canvas = $('touchPad');
     const context = canvas.getContext('2d');
     const cap = new cv.VideoCapture(video);
-    
-    const camBtn = document.getElementById('cam');
-    camBtn.addEventListener('click', () => {
-        let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        let link = document.createElement('a');
-        link.download = "my-image.png";
-        link.href = image;
-        link.click();
+    const radioBtn = qsa("input");
+    const dropDown = qs("select");
+
+    $("startBtn").addEventListener("click", () => {
+        $("welcome").style.display = "none";
+        start();
     });
 
-    const selectedColorDiv = document.querySelector("#selectColorDiv");
-
-    actionBtn.addEventListener('click', () => {
-        if (streaming) {
-            stop();
-            // cam.disabled = true;
-            // cam.classList.add('hidden');
-            // selectedColorDiv.classList.add('hidden');
-            actionBtn.textContent = 'Start';
-        } else {
-            start();
-            cam.disabled = false;
-            // cam.classList.remove('hidden');
-            // selectedColorDiv.classList.remove('hidden');
-            if (!hidePopup) {
-                hidePopup = true;
-                let popUp = document.getElementById('popup');
-                popUp.classList.add('hidden');
-            }
-            actionBtn.textContent = 'Stop';
-        }
-    });
-
-    canvas.addEventListener("mousedown", function(event) { 
+    $("touchPad").addEventListener("mousedown", function(event) { 
         let pixelRGB = getPixelRGB(event);
         hsvSelectColor = RGBtoHSV(pixelRGB.r, pixelRGB.g, pixelRGB.b);
-        clearInterval(this.intervalID);
+        clearInterval(intervalID);
         setTimeout(processVideo, 0);
+    });
+
+    $("camBtn").addEventListener("click", () => {
+        $("saveBtn").classList.toggle("hidden");
+        if (streaming) {
+            stop();
+        } else {
+            start();
+        }
     });
 
     function calcLowerHsv(num) {
@@ -174,11 +152,14 @@ function onReady() {
             b: imageData[2]
         }
 
-        const div = document.querySelector("#selectColorDiv div");
-        div.style.backgroundColor = "rgb(" + pixelRGB.r + ", " 
-            + pixelRGB.g + ", " + pixelRGB.b + ")";
-        const divText = document.querySelector("#selectColorDiv span");
-        divText.innerText = pixelRGB.r + ", " + pixelRGB.g + ", " + pixelRGB.b;
+        // const colorDisplay = qs("#selectColorDiv div");
+        // if (colorDisplay) {
+        //     colorDisplay.style.backgroundColor = "rgb(" + pixelRGB.r + 
+        //         ", " + pixelRGB.g + ", " + pixelRGB.b + ")";
+        //     const colorText = qs("#selectColorDiv span");
+        //     colorText.innerText = pixelRGB.r + ", " + pixelRGB.g 
+        //         + ", " + pixelRGB.b;
+        // }
         
         return pixelRGB;
     }
@@ -196,8 +177,9 @@ function onReady() {
                 src = new cv.Mat(height, width, cv.CV_8UC4);
                 dst = new cv.Mat(height, width, cv.CV_8UC1);
                 hsv = new cv.Mat();
-                this.intervalID = setInterval(() => {
-                    context.drawImage(vidElement, 0, 0, vidElement.clientWidth, vidElement.clientHeight)
+                intervalID = setInterval(() => {
+                    
+                    context.drawImage(video, 0, 0, width, height)
                 }, 500);
             })
             .catch(err => console.log(`An error occurred: ${err}`));
@@ -212,14 +194,14 @@ function onReady() {
             stream.getVideoTracks()[0].stop();
         }
         streaming = false;
-        clearInterval(this.intervalID);
+        clearInterval(intervalID);
     }
 
     function processVideo() {
-        if (!streaming) {
+        if (!streaming || !video.srcObject) {
             src.delete();
             dst.delete();
-            return;
+            return
         }
         const begin = Date.now();
         cap.read(src);
@@ -281,4 +263,5 @@ function onReady() {
             cv.circle(dst, mid, radius, settingColor[dropDown.value])
         }
     }
+
 }
