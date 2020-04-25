@@ -1,0 +1,22 @@
+{
+  "name": "bold-colors",
+  "version": "1.0.0",
+  "description": "**University of Washington Informatics Capstone 2020**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thejameskim/bold-colors.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thejameskim/bold-colors/issues"
+  },
+  "homepage": "https://github.com/thejameskim/bold-colors#readme",
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
+  }
+}
