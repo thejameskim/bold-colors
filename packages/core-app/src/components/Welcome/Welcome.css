@@ -1,0 +1,31 @@
+.instruct-img {
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-size: contain;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#welcome-pu {
+    background-color: rgba(255,255,255,0.8);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 2;
+}
+
+#welcome-pu h1 {
+    margin: 0;
+}
+
+#welcome-pu span {
+    font-size: medium;
+}
+
+#welcome-pu p {
+    margin-bottom: 0;
+}

@@ -1,6 +1,8 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	height: 100%;
+	font-family: Helvetica, Arial, sans-serif
 }
 
 .main-app {
@@ -8,4 +10,8 @@ html, body {
 	width: 100vw;
 	overflow-x: hidden;
 	overflow-y: hidden;
+}
+
+.hidden {
+	visibility: hidden;
 }

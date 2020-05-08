@@ -4,7 +4,9 @@ import './GraphicsCore.css';
 import { GraphicsManipulator } from '../../utils/GraphicsManipulator';
 
 type GraphicsCoreProps = {
-	cvHelper: OpenCVHelper
+	cvHelper: OpenCVHelper,
+	hideWelcome: Boolean,
+	hideWelcomeFunc: React.Dispatch<React.SetStateAction<Boolean>>
 }
 
 const REFRESH_RATE = 0.017;
@@ -12,7 +14,9 @@ const HEIGHT_MULTIPLIER = 0.9
 
 // GraphicsCore is the canvas element that also keeps track of all the OpenCV state information
 export const GraphicsCore: React.FC<GraphicsCoreProps> = ({
-	cvHelper
+	cvHelper,
+	hideWelcome,
+	hideWelcomeFunc
 }) => {
 	const canvasEl = useRef<HTMLCanvasElement | null>(null);
 
@@ -34,6 +38,9 @@ export const GraphicsCore: React.FC<GraphicsCoreProps> = ({
 			cvHelper.setCanvasElCurrent(canvasElCurrent);
 
 			canvasElCurrent.addEventListener("mousedown", (event) => {
+				if (!hideWelcome) {
+					hideWelcomeFunc(true);
+				}
 				const pixelRGB = GraphicsManipulator.getPixelRGB(context, canvasElCurrent, event);
 				const hsvSelectColor = GraphicsManipulator.RGBtoHSV(pixelRGB);
 				cvHelper.setHSVSelectColor(hsvSelectColor);

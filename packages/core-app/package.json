@@ -1,6 +1,5 @@
 {
   "name": "core-app",
-  "homepage": "https://boldcolors.info/app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=https://boldcolors.info/app react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

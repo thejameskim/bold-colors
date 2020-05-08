@@ -51,8 +51,16 @@ export class OpenCVHelper {
 		this.cvHSV = new this.cv.Mat();
 	}
 
+	public getHighlightColor(): HighlightColor {
+		return this.highlightColor;
+	}
+
 	public setHighlightColor(highlightColor: HighlightColor) {
 		this.highlightColor = highlightColor;
+	}
+
+	public getShape(): Shapes {
+		return this.shape;
 	}
 
 	public setShape(shape: Shapes) {
