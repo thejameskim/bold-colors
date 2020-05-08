@@ -62,8 +62,12 @@ const App: React.FC = () => {
 				/>
 			</div>
 			<NavBar cvHelper={cvHelper} height={height * 0.08} 
-				setHideSetting={() => { setHideSet(!hideSet) }}
-				setHideHelp={() => { setHideHelp(!hideHelp) }} />
+				setHideSetting={() => { 
+					setHideSet(!hideSet) 
+				}}
+				setHideHelp={() => { 
+					setHideHelp(!hideHelp) 
+				}} />
 		</div>
 	);
 }

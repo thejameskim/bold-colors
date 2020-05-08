@@ -57,3 +57,9 @@
 	margin-top: 5px;
 	margin-bottom: 10px;
 }
+
+@media screen and (min-width: 1024px){
+	.settings-pane {
+		left: 60%;
+	}
+}
