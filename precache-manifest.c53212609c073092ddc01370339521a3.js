@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ff523298d8737a625365b59f8b9aa1fb",
+    "revision": "0b680c2a98fc0e080c7ce6f6ee915475",
     "url": "/index.html"
   },
   {
-    "revision": "6a1442602d3086cbd327",
-    "url": "/static/css/main.72b7ec13.chunk.css"
+    "revision": "0174103ad34ad6a62455",
+    "url": "/static/css/main.430ca85d.chunk.css"
   },
   {
     "revision": "060a99d6effe5d8e5ff7",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.fc56e2d7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6a1442602d3086cbd327",
-    "url": "/static/js/main.1b405cf2.chunk.js"
+    "revision": "0174103ad34ad6a62455",
+    "url": "/static/js/main.988ec182.chunk.js"
   },
   {
     "revision": "b5595e5894cc9d8dcb9d",
@@ -64,8 +64,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/elisa-outline.5d129976.png"
   },
   {
-    "revision": "cd681ea696a3446fdbb7c688fb28f0af",
-    "url": "/static/media/iphone.cd681ea6.png"
+    "revision": "e3377cb185a41ffdb452fe72233941a6",
+    "url": "/static/media/iphone.e3377cb1.png"
   },
   {
     "revision": "f151ddbcaab788135df07d86a59d08be",
@@ -106,6 +106,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "5d8adac23ccac67b817d2060ce7f9ce1",
     "url": "/static/media/outline-6.5d8adac2.png"
+  },
+  {
+    "revision": "aed490c3a736550b491c2d4dc4b6abf8",
+    "url": "/static/media/twentiethcentury.aed490c3.woff"
   },
   {
     "revision": "e137aca71aac055d8deeea5264a3644d",

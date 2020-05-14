@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.72b7ec13.chunk.css",
-    "main.js": "/static/js/main.1b405cf2.chunk.js",
-    "main.js.map": "/static/js/main.1b405cf2.chunk.js.map",
+    "main.css": "/static/css/main.430ca85d.chunk.css",
+    "main.js": "/static/js/main.988ec182.chunk.js",
+    "main.js.map": "/static/js/main.988ec182.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.ce60df0a.js",
     "runtime-main.js.map": "/static/js/runtime-main.ce60df0a.js.map",
     "static/js/2.fc56e2d7.chunk.js": "/static/js/2.fc56e2d7.chunk.js",
     "static/js/2.fc56e2d7.chunk.js.map": "/static/js/2.fc56e2d7.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.f6a2b71258c2f1d239620755173a07dc.js": "/precache-manifest.f6a2b71258c2f1d239620755173a07dc.js",
+    "precache-manifest.c53212609c073092ddc01370339521a3.js": "/precache-manifest.c53212609c073092ddc01370339521a3.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.72b7ec13.chunk.css.map": "/static/css/main.72b7ec13.chunk.css.map",
+    "static/css/main.430ca85d.chunk.css.map": "/static/css/main.430ca85d.chunk.css.map",
     "static/js/2.fc56e2d7.chunk.js.LICENSE.txt": "/static/js/2.fc56e2d7.chunk.js.LICENSE.txt",
     "static/media/allison-color.png": "/static/media/allison-color.44d40bcb.png",
     "static/media/allison-outline.png": "/static/media/allison-outline.ad47caa5.png",
@@ -22,7 +22,7 @@
     "static/media/background-3.png": "/static/media/background-3.57f88ab4.png",
     "static/media/elisa-color.png": "/static/media/elisa-color.c0c97b7c.png",
     "static/media/elisa-outline.png": "/static/media/elisa-outline.5d129976.png",
-    "static/media/iphone.png": "/static/media/iphone.cd681ea6.png",
+    "static/media/iphone.png": "/static/media/iphone.e3377cb1.png",
     "static/media/james-color.png": "/static/media/james-color.f151ddbc.png",
     "static/media/james-outline.png": "/static/media/james-outline.ba8a5e43.png",
     "static/media/main-image-circles.png": "/static/media/main-image-circles.d7aa18c5.png",
@@ -33,13 +33,14 @@
     "static/media/outline-4.png": "/static/media/outline-4.bc167b11.png",
     "static/media/outline-5.png": "/static/media/outline-5.229f40a1.png",
     "static/media/outline-6.png": "/static/media/outline-6.5d8adac2.png",
+    "static/media/index.css": "/static/media/twentiethcentury.aed490c3.woff",
     "static/media/will-color.png": "/static/media/will-color.e137aca7.png",
     "static/media/will-outline.png": "/static/media/will-outline.5f25a036.png"
   },
   "entrypoints": [
     "static/js/runtime-main.ce60df0a.js",
     "static/js/2.fc56e2d7.chunk.js",
-    "static/css/main.72b7ec13.chunk.css",
-    "static/js/main.1b405cf2.chunk.js"
+    "static/css/main.430ca85d.chunk.css",
+    "static/js/main.988ec182.chunk.js"
   ]
 }
