@@ -2,6 +2,10 @@
 	margin-top: 20px;
 }
 
+#team-person {
+	text-decoration: underline;
+}
+
 .team-content {
 	margin-left: var(--MARGIN-DEFAULT);
 	margin-right: var(--MARGIN-DEFAULT);

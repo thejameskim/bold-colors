@@ -13,9 +13,9 @@ import { genQuadArr } from '../../../utils/generateQuadArray/generateQuadArray';
 import { MAIN_FADE } from '../../../utils/constants/FADE';
 import { CustomFade } from '../../CustomFade/CustomFade';
 
-const HEADLINE_MAIN = "Boldly Tackle Your Next Route";
+const HEADLINE_MAIN = "See the route a new type of way";
 const SUB_TEXT = "What is bold colors?";
-const DESCRIPTION = "A route planning application to empower colorblind boulderers on their next adventure";
+const DESCRIPTION = "A route planning application to empower colorblind rock climbers in their next adventure";
 const BUTTON_TEXT = "Show me the Route";
 const BUTTON_LINK = "/app";
 
