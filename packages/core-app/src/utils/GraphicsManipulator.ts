@@ -1,4 +1,4 @@
-export const BORDER_THRESHOLD = 20;
+export const BORDER_THRESHOLD = 5;
 export const HSV_THRESHOLD = 30;
 
 export class GraphicsManipulator {
@@ -95,6 +95,20 @@ export class GraphicsManipulator {
 			hsv.v += numToAdd,
 			HSV4
 		]
+	}
+
+	// contrast must be [-100..100]
+	// https://stackoverflow.com/questions/10521978/html5-canvas-image-contrast
+	static contrastImage(imageData: ImageData, contrast: number) {
+		const data = imageData.data;
+		const contrastAsDecimalShiftRange = (contrast / 100) + 1;
+		const intercept = 128 * (1 - contrastAsDecimalShiftRange);
+		for (let i = 0; i < data.length; i += 4) {
+			for (let j = i; j < i + 3; j++) {
+				data[j] = data[j] * contrast + intercept;
+			}
+		}
+		return data;
 	}
 }
 

@@ -20,6 +20,7 @@ export class OpenCVHelper {
 	private highlightColor: HighlightColor = HIGHLIGHT_COLORS.RED;
 	private shape: Shapes = Shapes.CIRCLE;
 	private canvasElCurrent: HTMLCanvasElement | undefined = undefined;
+	private canvasEl2Current: HTMLCanvasElement | undefined = undefined;
 
 	constructor(
 		private cv = window.cv
@@ -71,9 +72,13 @@ export class OpenCVHelper {
 		this.cvHSVSelectColor = cvHSVSelectColor;
 	}
 
-	public setCanvasElCurrent(canvasElCurrent: HTMLCanvasElement) {
+	public setCanvasElCurrent(canvasElCurrent: HTMLCanvasElement, canvasEl2Current: HTMLCanvasElement) {
 		if (!this.canvasElCurrent) {
 			this.canvasElCurrent = canvasElCurrent;
+		}
+
+		if (!this.canvasEl2Current) {
+			this.canvasEl2Current = canvasEl2Current;
 		}
 	}
 
@@ -93,7 +98,13 @@ export class OpenCVHelper {
 		link.click();
 	}
 
-	public draw(context: CanvasRenderingContext2D, canvasElCurrent: HTMLCanvasElement) {
+	public draw(
+		context: CanvasRenderingContext2D,
+		canvasElCurrent: HTMLCanvasElement,
+		context2: CanvasRenderingContext2D,
+		canvasEl2Current: HTMLCanvasElement,
+		imageData: ImageData
+	) {
 		if (
 			!this.cv.Mat
 			|| !this.cv.MatVector
@@ -108,13 +119,12 @@ export class OpenCVHelper {
 			return;
 		}
 
-		this.cvVideoCapture.read(this.cvSource);
-		this.cvSource.copyTo(this.cvDestination);
-
+		// use contrasted version to get contours
+		const source = this.cv.matFromImageData(imageData);
 		const lowerHSV = GraphicsManipulator.GetHsvFormatted(this.cvHSVSelectColor, -HSV_THRESHOLD, 0);
 		const higherHSV = GraphicsManipulator.GetHsvFormatted(this.cvHSVSelectColor, HSV_THRESHOLD, 255);
-		this.cv.cvtColor(this.cvSource, this.cvHSV, this.cv.COLOR_RGB2HSV);
-		this.cvSource.convertTo(this.cvSource, -1, 3, 60);
+		this.cv.cvtColor(source, this.cvHSV, this.cv.COLOR_RGB2HSV);
+
 		const low = new this.cv.Mat(
 			this.cvHSV.rows,
 			this.cvHSV.cols,
@@ -142,11 +152,11 @@ export class OpenCVHelper {
 
 		switch (this.shape) {
 			case Shapes.RECTANGLE: {
-				this.drawRect(groupedContoursAsRectangles);
+				this.drawRect(groupedContoursAsRectangles, context);
 				break;
 			}
 			case Shapes.CIRCLE: {
-				this.drawCircle(groupedContoursAsRectangles);
+				this.drawCircle(groupedContoursAsRectangles, context);
 				break;
 			}
 			default: {
@@ -154,9 +164,10 @@ export class OpenCVHelper {
 			}
 		}
 
-		this.cv.imshow(canvasElCurrent, this.cvDestination);
-
 		// Clear memory and unused variables
+		source.delete();
+		this.cvHSV.delete();
+		this.cvHSV = new this.cv.Mat();
 		low.delete();
 		high.delete();
 		contours.delete();
@@ -179,32 +190,36 @@ export class OpenCVHelper {
 			contoursAsRectangles.push_back(rect);
 			contoursAsRectangles.push_back(rect);
 		}
-		this.cv.groupRectangles(contoursAsRectangles, weights, 1, 0.8);
+		this.cv.groupRectangles(contoursAsRectangles, weights, 1, 2);
 		weights.delete();
 		return contoursAsRectangles;
 	}
 
-	private drawRect(contoursAsRectangles: any) {
+	private drawRect(contoursAsRectangles: any, context: CanvasRenderingContext2D) {
 		for (let i = 0; i < contoursAsRectangles.size(); i++) {
 			const rect = contoursAsRectangles.get(i);
-			const p1 = new this.cv.Point(rect.x, rect.y);
-			const p2 = new this.cv.Point(rect.x + rect.width, rect.y + rect.height);
-
 			if (rect.width > BORDER_THRESHOLD && rect.height > BORDER_THRESHOLD) {
-				this.cv.rectangle(this.cvDestination, p1, p2, this.highlightColor, RECTANGLE_LINE_WIDTH, LINE_TYPE);
+				context.beginPath();
+				context.lineWidth = RECTANGLE_LINE_WIDTH;
+				context.strokeStyle = this.highlightColor;
+				context.rect(rect.x, rect.y, rect.width, rect.height);
+				context.stroke();
 			}
 		}
 	}
 
-	private drawCircle(contoursAsRectangles: any) {
+	private drawCircle(contoursAsRectangles: any, context: CanvasRenderingContext2D) {
 		for (let i = 0; i < contoursAsRectangles.size(); i++) {
 			const rect = contoursAsRectangles.get(i);
 			const radius = Math.max(rect.width, rect.height) / 2;
 			const centerX = rect.x + rect.width / 2;
 			const centerY = rect.y + rect.height / 2;
-			const center = new this.cv.Point(centerX, centerY);
 			if (rect.width > BORDER_THRESHOLD && rect.height > BORDER_THRESHOLD) {
-				this.cv.circle(this.cvDestination, center, radius, this.highlightColor, CIRCLE_LINE_WIDTH, LINE_TYPE);
+				context.beginPath();
+				context.lineWidth = CIRCLE_LINE_WIDTH;
+				context.strokeStyle = this.highlightColor;
+				context.ellipse(centerX, centerY, radius, radius, 0, 0, 360);
+				context.stroke();
 			}
 		}
 	}
