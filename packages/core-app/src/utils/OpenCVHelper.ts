@@ -113,9 +113,8 @@ export class OpenCVHelper {
 
 		const lowerHSV = GraphicsManipulator.GetHsvFormatted(this.cvHSVSelectColor, -HSV_THRESHOLD, 0);
 		const higherHSV = GraphicsManipulator.GetHsvFormatted(this.cvHSVSelectColor, HSV_THRESHOLD, 255);
-
 		this.cv.cvtColor(this.cvSource, this.cvHSV, this.cv.COLOR_RGB2HSV);
-		this.cvSource.convertTo(this.cvSource, -1, 2, 0);
+		this.cvSource.convertTo(this.cvSource, -1, 3, 60);
 		const low = new this.cv.Mat(
 			this.cvHSV.rows,
 			this.cvHSV.cols,
