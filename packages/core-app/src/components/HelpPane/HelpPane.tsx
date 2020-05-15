@@ -43,17 +43,17 @@ export const HelpPane: React.FC<HelpPaneProps> = ({
         left: (windowWidth / 20) + "px",
         top: (windowHeight / 15) + "px"
     }
-    return(
-    <>
-        <div style={style} className={"helpPane " + (hide ? "hidden" : "")}>
-            <button onClick={() => { hideFunc(true) }}><FontAwesomeIcon icon={faTimesCircle} /></button>
-            <h1><span>How to use</span><br />Bold Colors</h1>
-            <ol>
-                {stepsContent}
-            </ol>
-        </div>
-        <div className={"popup-bg " + (hide ? "hidden" : "")}>&nbsp;</div>
-    </>);
+    return (
+        <>
+            <div style={style} className={"helpPane " + (hide ? "hidden" : "")}>
+                <button onClick={() => { hideFunc(true) }}><FontAwesomeIcon icon={faTimesCircle} /></button>
+                <h1><span>How to use</span><br />Bold Colors</h1>
+                <ol>
+                    {stepsContent}
+                </ol>
+            </div>
+            <div className={"popup-bg " + (hide ? "hidden" : "")}>&nbsp;</div>
+        </>);
 }
 
 type StepProps = {
@@ -64,7 +64,7 @@ const Step: React.FC<StepProps> = ({
     stepData
 }) => {
     const url = "url(\'" + stepData.image + "\')";
-    return(<li>
+    return (<li>
         {stepData.desc}
         <div className="instruct-img" style={{ backgroundImage: url }}>&#32;</div>
     </li>);

@@ -1,5 +1,5 @@
-export const BORDER_THRESHOLD = 20;
-export const HSV_THRESHOLD = 30;
+export const BORDER_THRESHOLD = 10;
+export const HSV_THRESHOLD = 15;
 
 export class GraphicsManipulator {
 	static getPixelRGB(

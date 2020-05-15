@@ -44,19 +44,19 @@ const App: React.FC = () => {
 
 	return (
 		<div className="main-app">
-			<HelpPane 
-				hide={hideHelp} 
-				hideFunc={setHideHelp} 
-				windowWidth={width} 
+			<HelpPane
+				hide={hideHelp}
+				hideFunc={setHideHelp}
+				windowWidth={width}
 				windowHeight={height} />
 			<Welcome hide={hideWelcome} />
-			<GraphicsCore 
-				cvHelper={cvHelper} 
-				hideWelcome={hideWelcome} 
+			<GraphicsCore
+				cvHelper={cvHelper}
+				hideWelcome={hideWelcome}
 				hideWelcomeFunc={setHideWelcome} />
-			<SettingsPane 
-				cvHelper={cvHelper} 
-				hide={hideSet ? "hidden" : ""} 
+			<SettingsPane
+				cvHelper={cvHelper}
+				hide={hideSet ? "hidden" : ""}
 				setHide={setHideSet} />
 			<div>
 				<video
@@ -71,14 +71,14 @@ const App: React.FC = () => {
 					id="video-el"
 				/>
 			</div>
-			<NavBar 
-				cvHelper={cvHelper} 
+			<NavBar
+				cvHelper={cvHelper}
 				height={height * 0.08}
-				setHideSetting={() => { 
-					setHideSet(!hideSet) 
+				setHideSetting={() => {
+					setHideSet(!hideSet)
 				}}
-				setHideHelp={() => { 
-					setHideHelp(!hideHelp) 
+				setHideHelp={() => {
+					setHideHelp(!hideHelp)
 				}} />
 		</div>
 	);
