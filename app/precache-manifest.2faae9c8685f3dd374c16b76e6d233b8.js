@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7d3fc9ebd9e0abd49b1babb7cda04785",
+    "revision": "786d1d20f96505d2220def08f8156064",
     "url": "https://boldcolors.info/app/index.html"
   },
   {
-    "revision": "12a825ee745573021b4d",
-    "url": "https://boldcolors.info/app/static/css/main.9b81d923.chunk.css"
+    "revision": "eb8f30e17c84f4101a9e",
+    "url": "https://boldcolors.info/app/static/css/main.63bfd7b9.chunk.css"
   },
   {
     "revision": "77ff80bf60c7daa24030",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://boldcolors.info/app/static/js/2.756ac728.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "12a825ee745573021b4d",
-    "url": "https://boldcolors.info/app/static/js/main.9eac67f0.chunk.js"
+    "revision": "eb8f30e17c84f4101a9e",
+    "url": "https://boldcolors.info/app/static/js/main.53ed234b.chunk.js"
   },
   {
     "revision": "49262d484b7bb577bdce",
