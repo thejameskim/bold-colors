@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "https://boldcolors.info/app/static/css/main.63bfd7b9.chunk.css",
-    "main.js": "https://boldcolors.info/app/static/js/main.7c6ec037.chunk.js",
-    "main.js.map": "https://boldcolors.info/app/static/js/main.7c6ec037.chunk.js.map",
+    "main.js": "https://boldcolors.info/app/static/js/main.67f21146.chunk.js",
+    "main.js.map": "https://boldcolors.info/app/static/js/main.67f21146.chunk.js.map",
     "runtime-main.js": "https://boldcolors.info/app/static/js/runtime-main.2a17eec7.js",
     "runtime-main.js.map": "https://boldcolors.info/app/static/js/runtime-main.2a17eec7.js.map",
     "static/js/2.756ac728.chunk.js": "https://boldcolors.info/app/static/js/2.756ac728.chunk.js",
     "static/js/2.756ac728.chunk.js.map": "https://boldcolors.info/app/static/js/2.756ac728.chunk.js.map",
     "index.html": "https://boldcolors.info/app/index.html",
-    "precache-manifest.933b9516cb11d0cd1f81cc18b1b375b1.js": "https://boldcolors.info/app/precache-manifest.933b9516cb11d0cd1f81cc18b1b375b1.js",
+    "precache-manifest.5707dd118f335e33cac88ac1aec68907.js": "https://boldcolors.info/app/precache-manifest.5707dd118f335e33cac88ac1aec68907.js",
     "service-worker.js": "https://boldcolors.info/app/service-worker.js",
     "static/css/main.63bfd7b9.chunk.css.map": "https://boldcolors.info/app/static/css/main.63bfd7b9.chunk.css.map",
     "static/js/2.756ac728.chunk.js.LICENSE.txt": "https://boldcolors.info/app/static/js/2.756ac728.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.2a17eec7.js",
     "static/js/2.756ac728.chunk.js",
     "static/css/main.63bfd7b9.chunk.css",
-    "static/js/main.7c6ec037.chunk.js"
+    "static/js/main.67f21146.chunk.js"
   ]
 }
