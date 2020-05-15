@@ -9,6 +9,7 @@
     z-index: 5;
     display: flex;
     flex-direction: column;
+    font-size: small;
 }
 
 .helpPane > button {
@@ -16,6 +17,7 @@
     font-size: 12pt;
     align-self: flex-end;
     text-align: left;
+    background-color: white;
 }
 
 .helpPane li {
@@ -28,4 +30,21 @@
 
 .helpPane span {
     font-size: small;
+}
+
+.popup-bg {
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	right: 0;
+	left: 0;
+	background-color: rgba(169,169,169, 0.3);
+	z-index: 3;
+}
+
+@media screen and (min-width: 350px) {
+    .helpPane {
+        font-size: medium;
+        overflow-y: scroll;
+    }
 }

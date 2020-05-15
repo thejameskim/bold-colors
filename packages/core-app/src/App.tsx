@@ -44,10 +44,20 @@ const App: React.FC = () => {
 
 	return (
 		<div className="main-app">
-			<HelpPane hide={hideHelp} hideFunc={setHideHelp} windowWidth={width} windowHeight={height} />
+			<HelpPane 
+				hide={hideHelp} 
+				hideFunc={setHideHelp} 
+				windowWidth={width} 
+				windowHeight={height} />
 			<Welcome hide={hideWelcome} />
-			<GraphicsCore cvHelper={cvHelper} hideWelcome={hideWelcome} hideWelcomeFunc={setHideWelcome} />
-			<SettingsPane cvHelper={cvHelper} hide={hideSet ? "hidden" : ""} setHide={setHideSet} />
+			<GraphicsCore 
+				cvHelper={cvHelper} 
+				hideWelcome={hideWelcome} 
+				hideWelcomeFunc={setHideWelcome} />
+			<SettingsPane 
+				cvHelper={cvHelper} 
+				hide={hideSet ? "hidden" : ""} 
+				setHide={setHideSet} />
 			<div>
 				<video
 					autoPlay
@@ -61,7 +71,9 @@ const App: React.FC = () => {
 					id="video-el"
 				/>
 			</div>
-			<NavBar cvHelper={cvHelper} height={height * 0.08} 
+			<NavBar 
+				cvHelper={cvHelper} 
+				height={height * 0.08}
 				setHideSetting={() => { 
 					setHideSet(!hideSet) 
 				}}

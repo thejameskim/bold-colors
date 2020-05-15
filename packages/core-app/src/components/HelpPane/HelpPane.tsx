@@ -1,8 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import './HelpPane.css';
-import { useResize } from '../../utils/ElementWidthHook';
 
 type StepContent = {
     image: string,
@@ -37,23 +36,24 @@ export const HelpPane: React.FC<HelpPaneProps> = ({
     windowWidth,
     windowHeight
 }) => {
-    // const componentRef = React.createRef();
-    // const { width, height } = useResize(componentRef);
-    // console.log(componentRef)
     const stepsContent = instructData.map((step, index) => {
         return <Step key={index} stepData={step} />
     });
     const style = {
-        left: (windowWidth / 15) + "px",
+        left: (windowWidth / 20) + "px",
         top: (windowHeight / 15) + "px"
     }
-    return(<div style={style} className={"helpPane " + (hide ? "hidden" : "")}>
-        <button onClick={() => { hideFunc(true) }}><FontAwesomeIcon icon={faTimesCircle} /></button>
-        <h1><span>How to use</span><br />Bold Colors</h1>
-        <ol>
-            {stepsContent}
-        </ol>
-    </div>);
+    return(
+    <>
+        <div style={style} className={"helpPane " + (hide ? "hidden" : "")}>
+            <button onClick={() => { hideFunc(true) }}><FontAwesomeIcon icon={faTimesCircle} /></button>
+            <h1><span>How to use</span><br />Bold Colors</h1>
+            <ol>
+                {stepsContent}
+            </ol>
+        </div>
+        <div className={"popup-bg " + (hide ? "hidden" : "")}>&nbsp;</div>
+    </>);
 }
 
 type StepProps = {
