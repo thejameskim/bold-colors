@@ -41,10 +41,19 @@ export const GraphicsCore: React.FC<GraphicsCoreProps> = ({
 				if (!hideWelcome) {
 					hideWelcomeFunc(true);
 				}
-				const pixelRGB = GraphicsManipulator.getPixelRGB(context, canvasElCurrent, event);
+				const pixelRGB = GraphicsManipulator.getPixelRGBMouse(context, canvasElCurrent, event);
 				const hsvSelectColor = GraphicsManipulator.RGBtoHSV(pixelRGB);
 				cvHelper.setHSVSelectColor(hsvSelectColor);
 			});
+
+			canvasElCurrent.addEventListener("touchend", (event) => {
+				if (!hideWelcome) {
+					hideWelcomeFunc(true);
+				}
+				const pixelRGB = GraphicsManipulator.getPixelRGBTouch(context, canvasElCurrent, event);
+				const hsvSelectColor = GraphicsManipulator.RGBtoHSV(pixelRGB);
+				cvHelper.setHSVSelectColor(hsvSelectColor);
+			})
 
 			canvasUpdatingInterval = setInterval(async () => {
 				let toDraw = cvHelper.getLatestVideoFrame();
