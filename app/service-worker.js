@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://boldcolors.info/app/precache-manifest.2faae9c8685f3dd374c16b76e6d233b8.js"
+  "https://boldcolors.info/app/precache-manifest.f07671b38750287ab80fa67d5ba18861.js"
 );
 
 self.addEventListener('message', (event) => {
