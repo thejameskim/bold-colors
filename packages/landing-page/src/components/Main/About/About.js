@@ -23,7 +23,7 @@ import { CustomFade } from '../../CustomFade/CustomFade';
 const HEADER = "Why Bold Colors?";
 const TEXT_DESCRIPTIONS = [
 	{
-		headline: "8% of the world population is colorblind.",
+		headline: "9% of the world population is colorblind.",
 		description: "That doesn't seem like much, but that means that about 500 million people of the world deal with some sort of colorblindness.",
 		textAlign: "right",
 		marginRight: '0%',
@@ -102,9 +102,9 @@ const TEXT_DESCRIPTIONS = [
 
 const FEATURES = "Features";
 const FEATURES_DESCRIPTION = [
-	"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum ",
-	"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum ",
-	"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum ",
+	"Object recognition and color detection using OpenCV.",
+	"Customizable settings for accessibility.",
+	"Save images to revisit route planning.",
 ];
 
 export function About() {

@@ -17,9 +17,14 @@
 	src: url("assets/fonts/FuturaBold.ttf") format("truetype");
 } */
 
+@font-face {
+	font-family: MainFont;
+	src: url("./assets/twentiethcentury.woff") format("woff");
+}
+
 body {
 	margin: 0;
-	font-family: FuturaCustom, sans-serif;
+	font-family: MainFont, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	padding: 0px;
@@ -28,7 +33,7 @@ body {
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	font-family: MainFont, source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 h1, h2, h3, h4, h5 {
