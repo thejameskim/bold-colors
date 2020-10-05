@@ -3,10 +3,6 @@
 
 Bold Colors empowers color blind individuals to enjoy the benefits of indoor climbing.
 
-## Getting Started
-
-
-
 ## Team 
 **Advisors:** Marlina L. Yee-Hales and Yash Patel  
 
