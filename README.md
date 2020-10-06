@@ -1,11 +1,7 @@
 # Bold Colors
 **University of Washington Informatics Capstone 2020**  
 
-Bold Colors empowers color blind individuals to enjoy the benefits of indoor climbing
-
-## Getting Started
-
-
+Bold Colors empowers color blind individuals to enjoy the benefits of indoor climbing.
 
 ## Team 
 **Advisors:** Marlina L. Yee-Hales and Yash Patel  
