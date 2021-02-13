@@ -1,8 +1,25 @@
-export const BORDER_THRESHOLD = 20;
+export const BORDER_THRESHOLD = 5;
 export const HSV_THRESHOLD = 30;
 
 export class GraphicsManipulator {
-	static getPixelRGB(
+	static getPixelRGBTouch(
+		context: CanvasRenderingContext2D,
+		canvas: HTMLCanvasElement,
+		event: TouchEvent
+	): PixelRGB {
+		const rect = canvas.getBoundingClientRect();
+
+		const x = event.changedTouches[0].clientX - rect.left;
+		const y = event.changedTouches[0].clientY - rect.top;
+		const imageData = context.getImageData(x, y, 1, 1).data;
+		return {
+			r: imageData[0],
+			g: imageData[1],
+			b: imageData[2]
+		};
+	}
+
+	static getPixelRGBMouse(
 		context: CanvasRenderingContext2D,
 		canvas: HTMLCanvasElement,
 		event: MouseEvent
@@ -78,6 +95,20 @@ export class GraphicsManipulator {
 			hsv.v += numToAdd,
 			HSV4
 		]
+	}
+
+	// contrast must be [-100..100]
+	// https://stackoverflow.com/questions/10521978/html5-canvas-image-contrast
+	static contrastImage(imageData: ImageData, contrast: number) {
+		const data = imageData.data;
+		const contrastAsDecimalShiftRange = (contrast / 100) + 1;
+		const intercept = 128 * (1 - contrastAsDecimalShiftRange);
+		for (let i = 0; i < data.length; i += 4) {
+			for (let j = i; j < i + 3; j++) {
+				data[j] = data[j] * contrast + intercept;
+			}
+		}
+		return data;
 	}
 }
 
