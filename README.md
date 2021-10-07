@@ -1,5 +1,7 @@
 # Bold Colors
 **University of Washington Informatics Capstone 2020**  
+https://thejameskim.github.io/bold-colors/  
+https://thejameskim.github.io/bold-colors/app/
 
 Bold Colors empowers color blind individuals to enjoy the benefits of indoor climbing.
 
